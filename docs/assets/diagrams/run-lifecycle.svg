@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
+  <title id="title">NexaPilot durable run lifecycle</title>
+  <desc id="desc">A user task enters a thread and durable run. The model either returns a final response or requests a tool. Policy allows, asks for approval, or denies the tool. Every outcome is persisted before the model continues.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8fbff"/><stop offset="1" stop-color="#eef4ff"/></linearGradient>
+    <linearGradient id="primary" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2563eb"/><stop offset="1" stop-color="#7c3aed"/></linearGradient>
+    <linearGradient id="warm" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f59e0b"/><stop offset="1" stop-color="#ea580c"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#1e3a8a" flood-opacity=".14"/></filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#64748b"/></marker>
+    <style>
+      .canvas{fill:url(#bg)} .lane{fill:#fff;stroke:#dbe5f3;stroke-width:1.5}.node{fill:#fff;stroke:#cbd8ea;stroke-width:1.5;filter:url(#shadow)}
+      .primary{fill:url(#primary);stroke:none}.policy{fill:url(#warm);stroke:none}.muted{fill:#f1f5f9;stroke:#cbd5e1;stroke-width:1.5}
+      .edge{fill:none;stroke:#64748b;stroke-width:2.2;marker-end:url(#arrow)}.loop{fill:none;stroke:#7c3aed;stroke-width:2.4;stroke-dasharray:7 6;marker-end:url(#arrow)}
+      text{font-family:Inter,"Segoe UI",sans-serif;fill:#0f172a}.label{font-size:17px;font-weight:600}.sub{font-size:12px;fill:#64748b}.white{fill:#fff}.tag{font-size:11px;font-weight:600;letter-spacing:.7px}.edge-label{font-size:12px;fill:#475569;font-weight:600}
+      @media(prefers-color-scheme:dark){.canvas{fill:#08111f}.lane,.node{fill:#111c2d;stroke:#2b3c55}.muted{fill:#172235;stroke:#354760}text{fill:#e5edf8}.sub,.edge-label{fill:#9db0c8}.edge{stroke:#7f91aa}.lane{opacity:.9}}
+    </style>
+  </defs>
+  <rect class="canvas" width="1200" height="570" rx="22"/>
+  <text x="54" y="54" font-size="26" font-weight="600">Durable run lifecycle</text>
+  <text class="sub" x="54" y="78">Policy gates every side effect; persistence closes every loop.</text>
+  <rect class="lane" x="38" y="106" width="1124" height="146" rx="18"/>
+  <text class="tag" x="58" y="132" fill="#2563eb">REQUEST &amp; REASONING</text>
+  <rect class="node" x="72" y="158" width="150" height="62" rx="14"/><text class="label" x="147" y="184" text-anchor="middle">User task</text><text class="sub" x="147" y="204" text-anchor="middle">workspace scoped</text>
+  <rect class="node" x="278" y="158" width="150" height="62" rx="14"/><text class="label" x="353" y="184" text-anchor="middle">Thread</text><text class="sub" x="353" y="204" text-anchor="middle">persistent history</text>
+  <rect class="primary" x="484" y="151" width="170" height="76" rx="16" filter="url(#shadow)"/><text class="label white" x="569" y="182" text-anchor="middle">Durable Run</text><text class="sub white" x="569" y="205" text-anchor="middle" opacity=".8">state · steps · events</text>
+  <rect class="node" x="720" y="158" width="160" height="62" rx="14"/><text class="label" x="800" y="184" text-anchor="middle">Model step</text><text class="sub" x="800" y="204" text-anchor="middle">stream or tool call</text>
+  <rect class="node" x="946" y="158" width="170" height="62" rx="14"/><text class="label" x="1031" y="184" text-anchor="middle">Final response</text><text class="sub" x="1031" y="204" text-anchor="middle">committed output</text>
+  <path class="edge" d="M222 189H278"/><path class="edge" d="M428 189H484"/><path class="edge" d="M654 189H720"/><path class="edge" d="M880 189H946"/><text class="edge-label" x="908" y="176" text-anchor="middle">no tools</text>
+  <rect class="lane" x="38" y="274" width="1124" height="246" rx="18"/>
+  <text class="tag" x="58" y="302" fill="#ea580c">TOOL GOVERNANCE &amp; RECOVERY</text>
+  <path class="edge" d="M800 220V339H683"/><text class="edge-label" x="813" y="280">tool call</text>
+  <path class="policy" d="M569 326 665 380 569 434 473 380z" filter="url(#shadow)"/><text class="label white" x="569" y="374" text-anchor="middle">Policy gate</text><text class="sub white" x="569" y="395" text-anchor="middle" opacity=".85">allow · ask · deny</text>
+  <rect class="node" x="748" y="344" width="174" height="72" rx="14"/><text class="label" x="835" y="373" text-anchor="middle">Tool execution</text><text class="sub" x="835" y="396" text-anchor="middle">bounded runtime</text>
+  <rect class="node" x="260" y="344" width="166" height="72" rx="14"/><text class="label" x="343" y="373" text-anchor="middle">User approval</text><text class="sub" x="343" y="396" text-anchor="middle">ask path</text>
+  <rect class="muted" x="486" y="458" width="166" height="42" rx="12"/><text class="label" x="569" y="485" text-anchor="middle" font-size="15">Denied result</text>
+  <rect class="primary" x="960" y="344" width="166" height="72" rx="14" filter="url(#shadow)"/><text class="label white" x="1043" y="373" text-anchor="middle">Persist result</text><text class="sub white" x="1043" y="396" text-anchor="middle" opacity=".85">operation + event</text>
+  <path class="edge" d="M665 380H748"/><text class="edge-label" x="706" y="367" text-anchor="middle">allow</text>
+  <path class="edge" d="M473 380H426"/><text class="edge-label" x="450" y="367" text-anchor="middle">ask</text>
+  <path class="edge" d="M343 344V326H748V344"/><text class="edge-label" x="530" y="317" text-anchor="middle">approved</text>
+  <path class="edge" d="M569 434V458"/><text class="edge-label" x="596" y="451">deny</text>
+  <path class="edge" d="M426 406 486 469"/><text class="edge-label" x="443" y="445">rejected</text>
+  <path class="edge" d="M922 380H960"/><path class="edge" d="M652 479H1043V416"/>
+  <path class="loop" d="M1043 344V294Q1043 274 1023 274H850Q830 274 830 254V220"/><text class="edge-label" x="942" y="264" text-anchor="middle">reload persisted history</text>
+</svg>
